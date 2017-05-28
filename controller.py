@@ -9,12 +9,14 @@ http://hplgit.github.io/web4sciapps/doc/web/index.html
 """
 from model import InputForm
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
 from compute import compute
 
 app = Flask(__name__)
+Bootstrap(app)
 
 
-@app.route('/vib1', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     form = InputForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -23,7 +25,7 @@ def index():
     else:
         result = None
 
-    return render_template('view.html', form=form, result=result)
+    return render_template('view_bootstrap.html', form=form, result=result)
 
 
 if __name__ == '__main__':
