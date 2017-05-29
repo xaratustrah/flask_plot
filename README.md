@@ -12,10 +12,11 @@ First we need to install a couple of things:
 
     sudo apt-get update && sudo apt-get upgrade
 
-Installing `nginx` will fail if apache is running. If your installation breaks half ways, then remove the fragments, stop apache and then install nginx again:
+Installing `nginx` will fail if apache is running. If your installation breaks half ways, then remove the fragments, stop apache (and I actually suggest removing it in case not needed) and then install nginx again:
 
     sudo apt-get remove nginx* --purge
     sudo /etc/init.d/apache2 stop
+    sudo apt-get remove apache* --purge
     sudo apt-get install nginx-common
     sudo apt-get install nginx
 
@@ -35,8 +36,9 @@ create a file `/etc/nginx/sites-enabled/flask_plot.conf` with this content:
         }
     }
 
+If you choose to use port 80, then you might notice in the same directory there is a file called `default` which is a sim link from the `sites-available` directory. If you don't remove it, it will still show the defaul web page of `apache` under `/var/www` even if you have removed apache completely. More info on this [SO post](https://askubuntu.com/a/642288).
 
-now restart nginx server:
+Now restart nginx server:
 
     sudo service nginx restart
 
